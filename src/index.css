@@ -1,0 +1,109 @@
+:root {
+  --bg-canvas: #FBF9F5;
+  --bg-surface: #FFFFFF;
+  --bg-subtle: #F4EFE6;
+  --bg-inset: #ECE6DA;
+  --bg-dark: #1E2221;
+  --bg-code: #1A1E1D;
+
+  --text-primary: #1A1F1D;
+  --text-secondary: #565F5A;
+  --text-muted: #7E8882;
+  --text-inverse: #FAF8F5;
+
+  --border-hairline: #E7E2D7;
+  --border-strong: #D3CCC0;
+  --border-focus: #28533E;
+
+  --accent: #28533E;
+  --accent-hover: #1C3E2D;
+  --accent-subtle: #EEF4F0;
+  --accent-text: #1E4633;
+
+  --success: #256142;
+  --success-bg: #EEF7F1;
+  --success-border: #BCD8C7;
+
+  --danger: #9B3429;
+  --danger-bg: #FDF3F1;
+  --danger-border: #E8BFBA;
+
+  --warn: #8D5B18;
+  --warn-bg: #FAF4E8;
+  --warn-border: #EAD8B8;
+
+  --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
+
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  --shadow-subtle: 0 1px 2px rgba(20, 24, 22, 0.04);
+  --shadow-card: 0 1px 3px rgba(20, 24, 22, 0.06), 0 4px 12px rgba(20, 24, 22, 0.02);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+button, input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-canvas);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: var(--radius-xs);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Typography utilities */
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Accessible focus ring */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
