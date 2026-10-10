@@ -84,16 +84,12 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
   const totalSections = selectedChapter === 'ch1' ? 4 : 8
 
   return (
-    <div style={{ maxWidth: '840px', margin: '0 auto', padding: '36px 20px 80px' }}>
+    <div className="responsive-container" style={{ maxWidth: '840px' }}>
       {/* Overview Card */}
       <div
+        className="responsive-card"
         style={{
-          backgroundColor: '#FFFFFF',
-          border: '1px solid var(--border-hairline)',
-          borderRadius: '6px',
-          padding: '32px',
-          boxShadow: 'var(--shadow-subtle)',
-          marginBottom: '28px'
+          marginBottom: '24px'
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>

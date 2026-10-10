@@ -138,6 +138,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
         style={{
           padding: '12px 14px',
           overflowX: 'auto',
+          WebkitOverflowScrolling: 'touch',
           fontSize: '13.5px',
           lineHeight: '1.55',
           fontFamily: 'var(--font-mono)'

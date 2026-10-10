@@ -81,16 +81,12 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
   })
 
   return (
-    <div style={{ maxWidth: '840px', margin: '0 auto', padding: '36px 20px 80px' }}>
+    <div className="responsive-container" style={{ maxWidth: '840px' }}>
       {/* Overview Banner */}
       <div
+        className="responsive-card"
         style={{
-          backgroundColor: '#FFFFFF',
-          border: '1px solid var(--border-hairline)',
-          borderRadius: '6px',
-          padding: '32px',
-          boxShadow: 'var(--shadow-subtle)',
-          marginBottom: '28px'
+          marginBottom: '24px'
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
@@ -177,19 +173,15 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
       {/* Level-by-Level Breakdown */}
       {levelStats.length > 1 && (
         <div
+          className="responsive-card"
           style={{
-            backgroundColor: '#FFFFFF',
-            border: '1px solid var(--border-hairline)',
-            borderRadius: '6px',
-            padding: '24px',
-            boxShadow: 'var(--shadow-subtle)',
-            marginBottom: '28px'
+            marginBottom: '24px'
           }}
         >
           <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '14px' }}>
             Performance by Difficulty Level
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '10px' }}>
             {levelStats.map((st) => (
               <div
                 key={st.level}
@@ -225,8 +217,8 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
       <div
         style={{
           display: 'flex',
-          gap: '12px',
-          marginBottom: '28px',
+          gap: '10px',
+          marginBottom: '24px',
           flexWrap: 'wrap'
         }}
       >
@@ -236,15 +228,18 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
             style={{
               display: 'inline-flex',
               alignItems: 'center',
+              justifyContent: 'center',
               gap: '6px',
-              padding: '10px 20px',
+              padding: '12px 18px',
               borderRadius: '5px',
               border: 'none',
               backgroundColor: 'var(--accent)',
               color: '#FFFFFF',
               fontSize: '14px',
               fontWeight: 600,
-              cursor: 'pointer'
+              cursor: 'pointer',
+              flex: '1 1 200px',
+              minHeight: '44px'
             }}
           >
             <RotateCcw size={15} />
@@ -257,15 +252,18 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
           style={{
             display: 'inline-flex',
             alignItems: 'center',
+            justifyContent: 'center',
             gap: '6px',
-            padding: '10px 18px',
+            padding: '12px 18px',
             borderRadius: '5px',
             border: '1px solid var(--border-strong)',
             backgroundColor: '#FFFFFF',
             color: 'var(--text-primary)',
             fontSize: '14px',
             fontWeight: 500,
-            cursor: 'pointer'
+            cursor: 'pointer',
+            flex: '1 1 160px',
+            minHeight: '44px'
           }}
         >
           <span>Start New Session</span>
@@ -276,14 +274,17 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
           style={{
             display: 'inline-flex',
             alignItems: 'center',
+            justifyContent: 'center',
             gap: '6px',
-            padding: '10px 18px',
+            padding: '12px 18px',
             borderRadius: '5px',
             border: '1px solid var(--border-hairline)',
             backgroundColor: 'transparent',
             color: 'var(--text-secondary)',
             fontSize: '14px',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            flex: '1 1 180px',
+            minHeight: '44px'
           }}
         >
           <BookOpen size={15} />

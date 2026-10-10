@@ -8,7 +8,19 @@ import {
 } from '../data/studySections'
 import { ChapterId } from '../types'
 import { CodeBlock } from './CodeBlock'
-import { CheckCircle2, Circle, ArrowRight, AlertTriangle, Lightbulb, CheckSquare, Square } from 'lucide-react'
+import {
+  CheckCircle2,
+  Circle,
+  ArrowRight,
+  AlertTriangle,
+  Lightbulb,
+  CheckSquare,
+  Square,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Menu
+} from 'lucide-react'
 
 interface StudyViewProps {
   selectedChapter: ChapterId
@@ -34,25 +46,30 @@ export const StudyView: React.FC<StudyViewProps> = ({
 
   const [activeSectionId, setActiveSectionId] = useState<number>(chapterSections[0].id)
   const [showChecklist, setShowChecklist] = useState<boolean>(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false)
 
   // Reset active section when chapter switches
   useEffect(() => {
     setActiveSectionId(chapterSections[0].id)
     setShowChecklist(false)
+    setIsMobileMenuOpen(false)
   }, [selectedChapter])
 
   const activeSection =
     chapterSections.find((s) => s.id === activeSectionId) || chapterSections[0]
   const isReviewed = reviewedSections.includes(activeSection.id)
+  const currentIdx = chapterSections.findIndex((s) => s.id === activeSection.id)
+  const prevSec = currentIdx > 0 ? chapterSections[currentIdx - 1] : null
+  const nextSec = currentIdx < chapterSections.length - 1 ? chapterSections[currentIdx + 1] : null
 
   return (
-    <div style={{ maxWidth: '1080px', margin: '0 auto', padding: '32px 20px 80px' }}>
+    <div className="responsive-container">
       {/* Intro Banner */}
       <div
         style={{
           borderBottom: '1px solid var(--border-hairline)',
           paddingBottom: '20px',
-          marginBottom: '28px'
+          marginBottom: '24px'
         }}
       >
         <div
@@ -80,29 +97,197 @@ export const StudyView: React.FC<StudyViewProps> = ({
           }}
         >
           {selectedChapter === 'ch1'
-            ? 'Chapter 1: Exploring Artificial Intelligence (Level K – Grade 9)'
-            : 'Chapter 3: Introduction to Python (Level K – Grade 9)'}
+            ? 'Chapter 1: Exploring Artificial Intelligence'
+            : 'Chapter 3: Introduction to Python'}
         </h1>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '15px', maxWidth: '780px' }}>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '14.5px', maxWidth: '780px' }}>
           {selectedChapter === 'ch1'
-            ? 'Study foundational AI concepts, branches, transformer architectures, diffusion, and ethical guidelines from the SABIS® curriculum.'
+            ? 'Study foundational AI concepts, branches, transformer architectures, diffusion, and ethical guidelines.'
             : 'Study one section at a time, review the worked examples, and mark off sections as you master them.'}
         </p>
       </div>
 
-      {/* Main Grid: Sidebar Navigator + Lesson Content */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '280px 1fr',
-          gap: '36px',
-          alignItems: 'start'
-        }}
-        className="study-layout-grid"
-      >
-        {/* Left Navigation: Topics index */}
-        <aside
+      {/* MOBILE TOPIC SELECTOR BAR (<= 768px) */}
+      <div className="mobile-only" style={{ flexDirection: 'column', gap: '8px', marginBottom: '20px' }}>
+        <div
           style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            backgroundColor: '#FFFFFF',
+            border: '1px solid var(--border-hairline)',
+            borderRadius: '6px',
+            padding: '10px 12px',
+            boxShadow: 'var(--shadow-subtle)',
+            width: '100%'
+          }}
+        >
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontWeight: 600,
+              fontSize: '13px',
+              color: 'var(--text-primary)',
+              textAlign: 'left'
+            }}
+          >
+            <Menu size={16} color="var(--accent)" />
+            <span>{showChecklist ? 'Exam Checklist' : `0${currentIdx + 1} · ${activeSection.shortTitle}`}</span>
+            <ChevronDown size={14} style={{ transform: isMobileMenuOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.15s ease' }} />
+          </button>
+
+          <div style={{ display: 'flex', gap: '4px' }}>
+            {prevSec && (
+              <button
+                onClick={() => {
+                  setActiveSectionId(prevSec.id)
+                  setShowChecklist(false)
+                  setIsMobileMenuOpen(false)
+                }}
+                style={{
+                  padding: '6px',
+                  borderRadius: '4px',
+                  border: '1px solid var(--border-hairline)',
+                  background: '#FAF8F4',
+                  cursor: 'pointer'
+                }}
+                aria-label="Previous topic"
+              >
+                <ChevronLeft size={14} />
+              </button>
+            )}
+            {nextSec && (
+              <button
+                onClick={() => {
+                  setActiveSectionId(nextSec.id)
+                  setShowChecklist(false)
+                  setIsMobileMenuOpen(false)
+                }}
+                style={{
+                  padding: '6px',
+                  borderRadius: '4px',
+                  border: '1px solid var(--border-hairline)',
+                  background: '#FAF8F4',
+                  cursor: 'pointer'
+                }}
+                aria-label="Next topic"
+              >
+                <ChevronRight size={14} />
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Collapsible Mobile Topics Menu */}
+        {isMobileMenuOpen && (
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              border: '1px solid var(--border-hairline)',
+              borderRadius: '6px',
+              padding: '8px',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '2px'
+            }}
+          >
+            <div
+              style={{
+                fontSize: '11px',
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                color: 'var(--text-muted)',
+                padding: '4px 8px 8px',
+                borderBottom: '1px solid var(--border-hairline)'
+              }}
+            >
+              Select Topic to Study
+            </div>
+            {chapterSections.map((sec, idx) => {
+              const checked = reviewedSections.includes(sec.id)
+              const isSelected = !showChecklist && activeSectionId === sec.id
+
+              return (
+                <button
+                  key={sec.id}
+                  onClick={() => {
+                    setShowChecklist(false)
+                    setActiveSectionId(sec.id)
+                    setIsMobileMenuOpen(false)
+                  }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    textAlign: 'left',
+                    padding: '8px 10px',
+                    borderRadius: '4px',
+                    border: 'none',
+                    backgroundColor: isSelected ? 'var(--bg-subtle)' : 'transparent',
+                    color: isSelected ? 'var(--text-primary)' : 'var(--text-secondary)',
+                    fontWeight: isSelected ? 600 : 400,
+                    fontSize: '13px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-muted)' }}>
+                      0{idx + 1}
+                    </span>
+                    <span>{sec.shortTitle}</span>
+                  </span>
+                  {checked && <CheckCircle2 size={14} color="var(--success)" />}
+                </button>
+              )
+            })}
+            <div style={{ height: '1px', backgroundColor: 'var(--border-hairline)', margin: '4px 0' }} />
+            <button
+              onClick={() => {
+                setShowChecklist(true)
+                setIsMobileMenuOpen(false)
+              }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                textAlign: 'left',
+                padding: '8px 10px',
+                borderRadius: '4px',
+                border: 'none',
+                backgroundColor: showChecklist ? 'var(--bg-subtle)' : 'transparent',
+                color: showChecklist ? 'var(--text-primary)' : 'var(--text-secondary)',
+                fontWeight: showChecklist ? 600 : 400,
+                fontSize: '13px',
+                cursor: 'pointer'
+              }}
+            >
+              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <CheckSquare size={13} color="var(--accent)" />
+                <span>Last-Minute Checklist</span>
+              </span>
+              <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}>
+                {completedChecklist.filter((id) => chapterChecklist.some((c) => c.id === id)).length}/{chapterChecklist.length}
+              </span>
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* Main Grid: Sidebar Navigator + Lesson Content */}
+      <div className="study-layout-grid">
+        {/* Left Navigation: Topics index (Desktop only) */}
+        <aside
+          className="desktop-only"
+          style={{
+            flexDirection: 'column',
             position: 'sticky',
             top: '80px',
             backgroundColor: '#FFFFFF',
@@ -241,12 +426,8 @@ export const StudyView: React.FC<StudyViewProps> = ({
 
         {/* Right Content Area: Either Active Lesson or Checklist */}
         <main
+          className="responsive-card"
           style={{
-            backgroundColor: '#FFFFFF',
-            border: '1px solid var(--border-hairline)',
-            borderRadius: '6px',
-            padding: '32px 36px',
-            boxShadow: 'var(--shadow-subtle)',
             minHeight: '600px'
           }}
         >

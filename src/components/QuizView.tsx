@@ -167,19 +167,19 @@ export const QuizView: React.FC<QuizViewProps> = ({
   const progressPercent = ((session.currentIndex + 1) / totalQuestions) * 100
 
   return (
-    <div style={{ maxWidth: '820px', margin: '0 auto', padding: '24px 20px 80px' }}>
+    <div className="responsive-container" style={{ maxWidth: '820px' }}>
       {/* Top Question Header */}
       <div
         style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginBottom: '16px',
+          marginBottom: '14px',
           paddingBottom: '12px',
           borderBottom: '1px solid var(--border-hairline)'
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
           <span
             style={{
               fontSize: '12px',
@@ -196,7 +196,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
               : `Level ${currentQuestion.level}`}
           </span>
           <span style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
-            Question {session.currentIndex + 1} of {totalQuestions}
+            Q{session.currentIndex + 1} of {totalQuestions}
           </span>
           {session.isExamMode && (
             <span
@@ -211,19 +211,19 @@ export const QuizView: React.FC<QuizViewProps> = ({
                 textTransform: 'uppercase'
               }}
             >
-              Exam Mode
+              Exam
             </span>
           )}
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
           <button
             onClick={() => onToggleBookmark(currentQId)}
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '4px',
-              padding: '4px 8px',
+              padding: '5px 8px',
               borderRadius: '4px',
               border: '1px solid var(--border-hairline)',
               backgroundColor: isBookmarked ? 'var(--warn-bg)' : '#FFFFFF',
@@ -234,7 +234,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
             title="Bookmark for review"
           >
             <Bookmark size={13} />
-            <span>{isBookmarked ? 'Bookmarked' : 'Bookmark'}</span>
+            <span>{isBookmarked ? 'Saved' : 'Bookmark'}</span>
           </button>
         </div>
       </div>
@@ -246,7 +246,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
           backgroundColor: 'var(--border-hairline)',
           borderRadius: '2px',
           overflow: 'hidden',
-          marginBottom: '28px'
+          marginBottom: '20px'
         }}
       >
         <div
@@ -261,12 +261,8 @@ export const QuizView: React.FC<QuizViewProps> = ({
 
       {/* Main Question Card */}
       <div
+        className="responsive-card"
         style={{
-          backgroundColor: '#FFFFFF',
-          border: '1px solid var(--border-hairline)',
-          borderRadius: '6px',
-          padding: '28px 32px',
-          boxShadow: 'var(--shadow-subtle)',
           marginBottom: '20px'
         }}
       >
@@ -508,13 +504,14 @@ export const QuizView: React.FC<QuizViewProps> = ({
               placeholder="e.g. Good-Luck"
               style={{
                 width: '100%',
-                padding: '10px 14px',
-                fontSize: '15px',
+                padding: '12px 14px',
+                fontSize: '16px',
                 fontFamily: 'var(--font-mono)',
                 borderRadius: '5px',
                 border: '1px solid var(--border-strong)',
                 backgroundColor: isSubmitted && !session.isExamMode ? '#FAF8F4' : '#FFFFFF',
-                outline: 'none'
+                outline: 'none',
+                minHeight: '44px'
               }}
               autoFocus
             />
@@ -544,8 +541,8 @@ export const QuizView: React.FC<QuizViewProps> = ({
               rows={currentQuestion.type === 'code-writing' ? 6 : 3}
               style={{
                 width: '100%',
-                padding: '10px 14px',
-                fontSize: '13.5px',
+                padding: '12px 14px',
+                fontSize: '15px',
                 fontFamily: 'var(--font-mono)',
                 lineHeight: '1.5',
                 borderRadius: '5px',
@@ -680,7 +677,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
             paddingTop: '16px',
             borderTop: '1px solid var(--border-hairline)',
             flexWrap: 'wrap',
-            gap: '10px'
+            gap: '12px'
           }}
         >
           <div style={{ display: 'flex', gap: '8px' }}>
@@ -691,17 +688,18 @@ export const QuizView: React.FC<QuizViewProps> = ({
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '5px',
-                padding: '6px 10px',
-                borderRadius: '4px',
+                padding: '8px 12px',
+                borderRadius: '5px',
                 border: '1px solid var(--border-hairline)',
                 backgroundColor: showHint ? '#FAF4E8' : '#FFFFFF',
                 color: showHint ? 'var(--warn)' : 'var(--text-secondary)',
-                fontSize: '12.5px',
-                cursor: 'pointer'
+                fontSize: '13px',
+                cursor: 'pointer',
+                minHeight: '40px'
               }}
               title="Shortcut: H"
             >
-              <Lightbulb size={13} />
+              <Lightbulb size={14} />
               <span>{showHint ? 'Hide Hint' : 'Hint'}</span>
             </button>
 
@@ -712,22 +710,23 @@ export const QuizView: React.FC<QuizViewProps> = ({
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '5px',
-                padding: '6px 10px',
-                borderRadius: '4px',
+                padding: '8px 12px',
+                borderRadius: '5px',
                 border: '1px solid var(--border-hairline)',
                 backgroundColor: '#FFFFFF',
                 color: 'var(--text-secondary)',
-                fontSize: '12.5px',
-                cursor: 'pointer'
+                fontSize: '13px',
+                cursor: 'pointer',
+                minHeight: '40px'
               }}
               title="Shortcut: S"
             >
-              <Edit3 size={13} />
+              <Edit3 size={14} />
               <span>Trace Pad</span>
             </button>
           </div>
 
-          <div style={{ display: 'flex', gap: '8px' }}>
+          <div style={{ display: 'flex', gap: '8px', flex: '1 1 auto', justifyContent: 'flex-end' }}>
             {session.currentIndex > 0 && (
               <button
                 type="button"
@@ -736,13 +735,14 @@ export const QuizView: React.FC<QuizViewProps> = ({
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '4px',
-                  padding: '7px 12px',
+                  padding: '8px 14px',
                   borderRadius: '5px',
                   border: '1px solid var(--border-hairline)',
                   backgroundColor: '#FFFFFF',
                   color: 'var(--text-secondary)',
                   fontSize: '13px',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  minHeight: '40px'
                 }}
               >
                 <ArrowLeft size={14} />
@@ -756,15 +756,17 @@ export const QuizView: React.FC<QuizViewProps> = ({
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
+                justifyContent: 'center',
                 gap: '6px',
-                padding: '8px 18px',
+                padding: '10px 20px',
                 borderRadius: '5px',
                 border: 'none',
                 backgroundColor: 'var(--accent)',
                 color: '#FFFFFF',
-                fontSize: '13.5px',
+                fontSize: '14px',
                 fontWeight: 600,
-                cursor: 'pointer'
+                cursor: 'pointer',
+                minHeight: '40px'
               }}
             >
               {!session.isExamMode ? (

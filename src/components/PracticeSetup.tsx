@@ -130,9 +130,9 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
   ]
 
   return (
-    <div style={{ maxWidth: '820px', margin: '0 auto', padding: '36px 20px 80px' }}>
+    <div className="responsive-container" style={{ maxWidth: '820px' }}>
       {/* Header */}
-      <div style={{ borderBottom: '1px solid var(--border-hairline)', paddingBottom: '20px', marginBottom: '28px' }}>
+      <div style={{ borderBottom: '1px solid var(--border-hairline)', paddingBottom: '20px', marginBottom: '24px' }}>
         <div style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-muted)', fontWeight: 600, marginBottom: '6px' }}>
           {selectedChapter === 'ch1'
             ? 'Tech Explorers: AI in Action · Practice Engine'
@@ -140,17 +140,17 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
         </div>
         <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '28px', fontWeight: 600, color: 'var(--text-primary)' }}>
           {selectedChapter === 'ch1'
-            ? 'Practice Chapter 1: Exploring Artificial Intelligence'
-            : 'Practice Chapter 3: Introduction to Python'}
+            ? 'Practice Chapter 1: AI in Action'
+            : 'Practice Chapter 3: Python Revision'}
         </h1>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '15px', marginTop: '6px' }}>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '14.5px', marginTop: '6px' }}>
           Select a quick warm-up session, drill by module or level, attempt the full{' '}
           {chapterQuestions.length}-question exam, or reattempt missed questions.
         </p>
       </div>
 
       {/* Mode Selection Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', marginBottom: '28px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '10px', marginBottom: '24px' }}>
         {/* Quick Practice */}
         <div
           onClick={() => setSelectedMode('quick')}
@@ -426,20 +426,23 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
       </div>
 
       {/* Launch CTA */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <div style={{ display: 'flex', width: '100%' }}>
         <button
           onClick={handleLaunch}
           style={{
+            width: '100%',
             backgroundColor: 'var(--accent)',
             color: '#FFFFFF',
             border: 'none',
             borderRadius: '6px',
-            padding: '12px 28px',
+            padding: '14px 28px',
             fontSize: '15px',
             fontWeight: 600,
             cursor: 'pointer',
             boxShadow: 'var(--shadow-subtle)',
-            transition: 'background 0.15s ease'
+            transition: 'background 0.15s ease',
+            minHeight: '48px',
+            textAlign: 'center'
           }}
         >
           {selectedMode === 'quick' && 'Start 10-Question Drill'}

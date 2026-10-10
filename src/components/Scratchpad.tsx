@@ -31,24 +31,19 @@ export const Scratchpad: React.FC<ScratchpadProps> = ({
   }
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        bottom: '24px',
-        right: '24px',
-        width: '380px',
-        maxWidth: 'calc(100vw - 32px)',
-        height: '420px',
-        backgroundColor: '#FFFFFF',
-        borderRadius: '8px',
-        border: '1px solid var(--border-strong)',
-        boxShadow: '0 8px 30px rgba(0, 0, 0, 0.12)',
-        display: 'flex',
-        flexDirection: 'column',
-        zIndex: 1000,
-        overflow: 'hidden'
-      }}
-    >
+    <>
+      {/* Mobile backdrop */}
+      <div
+        className="mobile-only"
+        onClick={onClose}
+        style={{
+          position: 'fixed',
+          inset: 0,
+          backgroundColor: 'rgba(20, 24, 22, 0.4)',
+          zIndex: 999
+        }}
+      />
+      <div className="scratchpad-container">
       {/* Header */}
       <div
         style={{
@@ -154,5 +149,6 @@ export const Scratchpad: React.FC<ScratchpadProps> = ({
         <span>Press Esc to close</span>
       </div>
     </div>
-  )
+  </>
+)
 }
