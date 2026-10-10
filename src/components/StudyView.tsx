@@ -134,15 +134,19 @@ export const StudyView: React.FC<StudyViewProps> = ({
               fontWeight: 600,
               fontSize: '13px',
               color: 'var(--text-primary)',
-              textAlign: 'left'
+              textAlign: 'left',
+              minWidth: 0,
+              flex: 1
             }}
           >
-            <Menu size={16} color="var(--accent)" />
-            <span>{showChecklist ? 'Exam Checklist' : `0${currentIdx + 1} · ${activeSection.shortTitle}`}</span>
-            <ChevronDown size={14} style={{ transform: isMobileMenuOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.15s ease' }} />
+            <Menu size={16} color="var(--accent)" style={{ flexShrink: 0 }} />
+            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              {showChecklist ? 'Exam Checklist' : `0${currentIdx + 1} · ${activeSection.shortTitle}`}
+            </span>
+            <ChevronDown size={14} style={{ flexShrink: 0, transform: isMobileMenuOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.15s ease' }} />
           </button>
 
-          <div style={{ display: 'flex', gap: '4px' }}>
+          <div style={{ display: 'flex', gap: '4px', flexShrink: 0 }}>
             {prevSec && (
               <button
                 onClick={() => {

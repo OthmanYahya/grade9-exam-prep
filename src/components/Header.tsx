@@ -291,12 +291,13 @@ export const Header: React.FC<HeaderProps> = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '8px 12px',
-            borderBottom: '1px solid var(--border-hairline)'
+            padding: '8px 10px',
+            borderBottom: '1px solid var(--border-hairline)',
+            gap: '6px'
           }}
         >
           {/* Compact Logo */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '5px', flexShrink: 0 }}>
             <div
               style={{
                 width: '26px',
@@ -315,6 +316,7 @@ export const Header: React.FC<HeaderProps> = ({
               K
             </div>
             <span
+              className="header-brand-title"
               style={{
                 fontWeight: 700,
                 fontSize: '14px',
@@ -322,7 +324,7 @@ export const Header: React.FC<HeaderProps> = ({
                 color: 'var(--text-primary)'
               }}
             >
-              PyLevel K
+              PyLevel<span className="fold-narrow-hide"> K</span>
             </span>
           </div>
 
@@ -335,43 +337,46 @@ export const Header: React.FC<HeaderProps> = ({
               backgroundColor: '#FAF8F4',
               padding: '2px',
               borderRadius: '5px',
-              border: '1px solid var(--border-hairline)'
+              border: '1px solid var(--border-hairline)',
+              flexShrink: 0
             }}
           >
             <button
               onClick={() => onSelectChapter('ch1')}
               style={{
-                padding: '4px 8px',
+                padding: '4px 6px',
                 borderRadius: '3px',
                 border: 'none',
                 backgroundColor: selectedChapter === 'ch1' ? 'var(--accent)' : 'transparent',
                 color: selectedChapter === 'ch1' ? '#FFFFFF' : 'var(--text-secondary)',
                 fontWeight: selectedChapter === 'ch1' ? 600 : 500,
                 fontSize: '11.5px',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                whiteSpace: 'nowrap'
               }}
             >
-              Ch 1 · AI
+              Ch 1<span className="fold-narrow-hide"> · AI</span>
             </button>
             <button
               onClick={() => onSelectChapter('ch3')}
               style={{
-                padding: '4px 8px',
+                padding: '4px 6px',
                 borderRadius: '3px',
                 border: 'none',
                 backgroundColor: selectedChapter === 'ch3' ? 'var(--accent)' : 'transparent',
                 color: selectedChapter === 'ch3' ? '#FFFFFF' : 'var(--text-secondary)',
                 fontWeight: selectedChapter === 'ch3' ? 600 : 500,
                 fontSize: '11.5px',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                whiteSpace: 'nowrap'
               }}
             >
-              Ch 3 · Python
+              Ch 3<span className="fold-narrow-hide"> · Python</span>
             </button>
           </div>
 
           {/* Quick Icons */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '3px', flexShrink: 0 }}>
             <button
               onClick={onToggleScratchpad}
               aria-label="Toggle scratchpad"
@@ -379,8 +384,8 @@ export const Header: React.FC<HeaderProps> = ({
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: '32px',
-                height: '32px',
+                width: '30px',
+                height: '30px',
                 borderRadius: '5px',
                 border: '1px solid var(--border-hairline)',
                 backgroundColor: isScratchpadOpen ? 'var(--bg-subtle)' : '#FFFFFF',
@@ -388,7 +393,7 @@ export const Header: React.FC<HeaderProps> = ({
                 cursor: 'pointer'
               }}
             >
-              <Edit3 size={14} />
+              <Edit3 size={13} />
             </button>
             <button
               onClick={onOpenShortcuts}
@@ -397,8 +402,8 @@ export const Header: React.FC<HeaderProps> = ({
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: '32px',
-                height: '32px',
+                width: '30px',
+                height: '30px',
                 borderRadius: '5px',
                 border: '1px solid var(--border-hairline)',
                 backgroundColor: '#FFFFFF',
@@ -406,7 +411,7 @@ export const Header: React.FC<HeaderProps> = ({
                 cursor: 'pointer'
               }}
             >
-              <HelpCircle size={15} />
+              <HelpCircle size={14} />
             </button>
           </div>
         </div>

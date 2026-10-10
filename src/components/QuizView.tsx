@@ -176,16 +176,18 @@ export const QuizView: React.FC<QuizViewProps> = ({
           alignItems: 'center',
           marginBottom: '14px',
           paddingBottom: '12px',
-          borderBottom: '1px solid var(--border-hairline)'
+          borderBottom: '1px solid var(--border-hairline)',
+          flexWrap: 'wrap',
+          gap: '8px'
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
           <span
             style={{
-              fontSize: '12px',
+              fontSize: '11.5px',
               fontFamily: 'var(--font-mono)',
               fontWeight: 600,
-              padding: '2px 8px',
+              padding: '2px 7px',
               borderRadius: '4px',
               backgroundColor: 'var(--bg-subtle)',
               color: 'var(--text-secondary)'
@@ -195,14 +197,14 @@ export const QuizView: React.FC<QuizViewProps> = ({
               ? `AI · Q${currentQuestion.questionNumber}`
               : `Level ${currentQuestion.level}`}
           </span>
-          <span style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
+          <span style={{ fontSize: '12.5px', color: 'var(--text-secondary)' }}>
             Q{session.currentIndex + 1} of {totalQuestions}
           </span>
           {session.isExamMode && (
             <span
               style={{
-                fontSize: '11px',
-                padding: '2px 6px',
+                fontSize: '10.5px',
+                padding: '2px 5px',
                 borderRadius: '3px',
                 backgroundColor: 'var(--warn-bg)',
                 color: 'var(--warn)',
@@ -223,18 +225,18 @@ export const QuizView: React.FC<QuizViewProps> = ({
               display: 'inline-flex',
               alignItems: 'center',
               gap: '4px',
-              padding: '5px 8px',
+              padding: '4px 8px',
               borderRadius: '4px',
               border: '1px solid var(--border-hairline)',
               backgroundColor: isBookmarked ? 'var(--warn-bg)' : '#FFFFFF',
               color: isBookmarked ? 'var(--warn)' : 'var(--text-muted)',
-              fontSize: '12px',
+              fontSize: '11.5px',
               cursor: 'pointer'
             }}
             title="Bookmark for review"
           >
             <Bookmark size={13} />
-            <span>{isBookmarked ? 'Saved' : 'Bookmark'}</span>
+            <span className="fold-narrow-hide">{isBookmarked ? 'Saved' : 'Bookmark'}</span>
           </button>
         </div>
       </div>
@@ -597,21 +599,23 @@ export const QuizView: React.FC<QuizViewProps> = ({
                   <div style={{ fontSize: '12.5px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '8px' }}>
                     Honest Self-Assessment:
                   </div>
-                  <div style={{ display: 'flex', gap: '8px' }}>
+                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                     <button
                       onClick={() => onSelfAssess(currentQId, 'correct')}
                       style={{
                         display: 'inline-flex',
                         alignItems: 'center',
+                        justifyContent: 'center',
                         gap: '6px',
-                        padding: '6px 12px',
+                        padding: '8px 12px',
                         borderRadius: '4px',
                         border: `1px solid ${selfAssessment === 'correct' ? 'var(--success)' : 'var(--border-strong)'}`,
                         backgroundColor: selfAssessment === 'correct' ? 'var(--success-bg)' : '#FFFFFF',
                         color: selfAssessment === 'correct' ? 'var(--success)' : 'var(--text-secondary)',
                         fontSize: '12.5px',
                         cursor: 'pointer',
-                        fontWeight: 500
+                        fontWeight: 500,
+                        flex: '1 1 120px'
                       }}
                     >
                       <CheckCircle2 size={14} />
@@ -622,15 +626,17 @@ export const QuizView: React.FC<QuizViewProps> = ({
                       style={{
                         display: 'inline-flex',
                         alignItems: 'center',
+                        justifyContent: 'center',
                         gap: '6px',
-                        padding: '6px 12px',
+                        padding: '8px 12px',
                         borderRadius: '4px',
                         border: `1px solid ${selfAssessment === 'needs-practice' ? 'var(--warn)' : 'var(--border-strong)'}`,
                         backgroundColor: selfAssessment === 'needs-practice' ? 'var(--warn-bg)' : '#FFFFFF',
                         color: selfAssessment === 'needs-practice' ? 'var(--warn)' : 'var(--text-secondary)',
                         fontSize: '12.5px',
                         cursor: 'pointer',
-                        fontWeight: 500
+                        fontWeight: 500,
+                        flex: '1 1 120px'
                       }}
                     >
                       <AlertCircle size={14} />
@@ -668,19 +674,8 @@ export const QuizView: React.FC<QuizViewProps> = ({
         )}
 
         {/* Action Controls Bar */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginTop: '24px',
-            paddingTop: '16px',
-            borderTop: '1px solid var(--border-hairline)',
-            flexWrap: 'wrap',
-            gap: '12px'
-          }}
-        >
-          <div style={{ display: 'flex', gap: '8px' }}>
+        <div className="quiz-actions-container">
+          <div className="quiz-secondary-actions">
             <button
               type="button"
               onClick={() => setShowHint(!showHint)}
@@ -726,7 +721,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
             </button>
           </div>
 
-          <div style={{ display: 'flex', gap: '8px', flex: '1 1 auto', justifyContent: 'flex-end' }}>
+          <div className="quiz-primary-actions">
             {session.currentIndex > 0 && (
               <button
                 type="button"

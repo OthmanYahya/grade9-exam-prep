@@ -116,9 +116,10 @@ a:hover {
 }
 
 /* ==========================================
-   RESPONSIVE LAYOUT & UTILITIES
+   RESPONSIVE UTILITIES & BASE LAYOUT
    ========================================== */
 
+/* Breakpoint: Desktop (> 860px) */
 .desktop-only {
   display: flex !important;
 }
@@ -127,11 +128,16 @@ a:hover {
   display: none !important;
 }
 
+.fold-narrow-hide {
+  display: inline-block;
+}
+
 /* Common container padding */
 .responsive-container {
   max-width: 1080px;
   margin: 0 auto;
   padding: 32px 20px 80px;
+  width: 100%;
 }
 
 .responsive-card {
@@ -140,9 +146,10 @@ a:hover {
   border-radius: 6px;
   padding: 28px 32px;
   box-shadow: var(--shadow-subtle);
+  width: 100%;
 }
 
-/* Study layout */
+/* Study layout: desktop default */
 .study-layout-grid {
   display: grid;
   grid-template-columns: 280px 1fr;
@@ -150,7 +157,7 @@ a:hover {
   align-items: start;
 }
 
-/* Scratchpad panel */
+/* Scratchpad panel: desktop default */
 .scratchpad-container {
   position: fixed;
   bottom: 24px;
@@ -168,11 +175,53 @@ a:hover {
   overflow: hidden;
 }
 
-/* ==========================================
-   MOBILE MEDIA QUERIES (<= 768px)
-   ========================================== */
+/* Quiz controls container */
+.quiz-actions-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-hairline);
+  flex-wrap: wrap;
+  gap: 12px;
+}
 
-@media (max-width: 768px) {
+.quiz-secondary-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.quiz-primary-actions {
+  display: flex;
+  gap: 8px;
+  flex: 1 1 auto;
+  justify-content: flex-end;
+}
+
+/* =======================================================
+   TABLET & FOLD INNER SCREEN MEDIA QUERY (768px - 900px)
+   ======================================================= */
+@media (min-width: 769px) and (max-width: 900px) {
+  .study-layout-grid {
+    grid-template-columns: 230px 1fr !important;
+    gap: 20px !important;
+  }
+
+  .responsive-container {
+    padding: 24px 16px 80px !important;
+  }
+
+  .responsive-card {
+    padding: 22px 20px !important;
+  }
+}
+
+/* =======================================================
+   MOBILE & FOLD MEDIA QUERY (<= 860px)
+   Switches navigation to clean 2-tier mobile header
+   ======================================================= */
+@media (max-width: 860px) {
   .desktop-only {
     display: none !important;
   }
@@ -181,7 +230,7 @@ a:hover {
     display: flex !important;
   }
 
-  /* Reduce input zoom on iOS Safari */
+  /* Prevent Safari auto-zoom on input focus */
   input, textarea, select {
     font-size: 16px !important;
   }
@@ -191,7 +240,7 @@ a:hover {
   }
 
   .responsive-card {
-    padding: 16px 14px !important;
+    padding: 18px 14px !important;
     border-radius: 8px;
   }
 
@@ -201,7 +250,7 @@ a:hover {
     gap: 20px !important;
   }
 
-  /* Scratchpad becomes a clean bottom sheet modal on mobile */
+  /* Scratchpad bottom sheet modal */
   .scratchpad-container {
     position: fixed !important;
     bottom: 0 !important;
@@ -209,15 +258,86 @@ a:hover {
     right: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
-    height: 72vh !important;
+    height: 75vh !important;
     border-radius: 14px 14px 0 0 !important;
     border-bottom: none !important;
     box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.2) !important;
   }
+}
 
-  /* Header adjustments */
-  .header-chapter-toggle {
-    font-size: 11px !important;
-    padding: 3px 6px !important;
+/* =======================================================
+   SMALL MOBILE & GALAXY Z FOLD COVER SCREEN (<= 420px)
+   Ultra-narrow cover screen (typically 320px - 344px)
+   ======================================================= */
+@media (max-width: 420px) {
+  .responsive-container {
+    padding: 12px 10px 85px !important;
+  }
+
+  .responsive-card {
+    padding: 14px 10px !important;
+    border-radius: 6px;
+  }
+
+  /* Action buttons re-arrange into clean 2-row layout */
+  .quiz-actions-container {
+    flex-direction: column !important;
+    gap: 8px !important;
+    align-items: stretch !important;
+  }
+
+  .quiz-secondary-actions {
+    display: flex !important;
+    width: 100% !important;
+    gap: 6px !important;
+  }
+
+  .quiz-secondary-actions > button {
+    flex: 1 !important;
+    justify-content: center !important;
+  }
+
+  .quiz-primary-actions {
+    display: flex !important;
+    width: 100% !important;
+    gap: 6px !important;
+    justify-content: stretch !important;
+  }
+
+  .quiz-primary-actions > button {
+    flex: 1 !important;
+    justify-content: center !important;
+  }
+}
+
+/* =======================================================
+   ULTRA-NARROW FOLD COVER SCREEN (<= 345px)
+   Galaxy Z Fold 2/3/4/5 cover screen
+   ======================================================= */
+@media (max-width: 345px) {
+  .responsive-container {
+    padding: 8px 6px 80px !important;
+  }
+
+  .responsive-card {
+    padding: 12px 8px !important;
+  }
+
+  /* Hide extra text labels that overflow on <= 345px */
+  .fold-narrow-hide {
+    display: none !important;
+  }
+
+  .header-brand-title {
+    font-size: 13px !important;
+  }
+
+  h1 {
+    font-size: 20px !important;
+    line-height: 1.25 !important;
+  }
+
+  h2 {
+    font-size: 18px !important;
   }
 }

@@ -150,12 +150,12 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
       </div>
 
       {/* Mode Selection Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '10px', marginBottom: '24px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 130px), 1fr))', gap: '10px', marginBottom: '24px' }}>
         {/* Quick Practice */}
         <div
           onClick={() => setSelectedMode('quick')}
           style={{
-            padding: '16px',
+            padding: '14px 12px',
             borderRadius: '6px',
             border: `1px solid ${selectedMode === 'quick' ? 'var(--accent)' : 'var(--border-hairline)'}`,
             backgroundColor: selectedMode === 'quick' ? 'var(--accent-subtle)' : '#FFFFFF',
@@ -165,9 +165,9 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
             <Zap size={16} color={selectedMode === 'quick' ? 'var(--accent)' : 'var(--text-secondary)'} />
-            <span style={{ fontWeight: 600, fontSize: '14.5px', color: 'var(--text-primary)' }}>Quick Drill</span>
+            <span style={{ fontWeight: 600, fontSize: '14px', color: 'var(--text-primary)' }}>Quick Drill</span>
           </div>
-          <div style={{ fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
+          <div style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
             10 randomized questions from Chapter {selectedChapter === 'ch1' ? '1' : '3'}. Perfect for a quick review.
           </div>
         </div>
@@ -176,7 +176,7 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
         <div
           onClick={() => setSelectedMode('level')}
           style={{
-            padding: '16px',
+            padding: '14px 12px',
             borderRadius: '6px',
             border: `1px solid ${selectedMode === 'level' ? 'var(--accent)' : 'var(--border-hairline)'}`,
             backgroundColor: selectedMode === 'level' ? 'var(--accent-subtle)' : '#FFFFFF',
@@ -186,11 +186,11 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
             <Layers size={16} color={selectedMode === 'level' ? 'var(--accent)' : 'var(--text-secondary)'} />
-            <span style={{ fontWeight: 600, fontSize: '14.5px', color: 'var(--text-primary)' }}>
-              {selectedChapter === 'ch1' ? 'By Module / Part' : 'By Difficulty'}
+            <span style={{ fontWeight: 600, fontSize: '14px', color: 'var(--text-primary)' }}>
+              {selectedChapter === 'ch1' ? 'By Module' : 'By Difficulty'}
             </span>
           </div>
-          <div style={{ fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
+          <div style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
             {selectedChapter === 'ch1'
               ? 'Drill Section 1.1, 1.2, 1.3, 1.4, Part A (MCQ), or Part B (True/False).'
               : 'Focus on a specific tier (Level 1, 2, 3, or 4) to systematically build mastery.'}
@@ -201,7 +201,7 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
         <div
           onClick={() => setSelectedMode('exam')}
           style={{
-            padding: '16px',
+            padding: '14px 12px',
             borderRadius: '6px',
             border: `1px solid ${selectedMode === 'exam' ? 'var(--accent)' : 'var(--border-hairline)'}`,
             backgroundColor: selectedMode === 'exam' ? 'var(--accent-subtle)' : '#FFFFFF',
@@ -211,9 +211,9 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
             <Award size={16} color={selectedMode === 'exam' ? 'var(--accent)' : 'var(--text-secondary)'} />
-            <span style={{ fontWeight: 600, fontSize: '14.5px', color: 'var(--text-primary)' }}>Full Exam</span>
+            <span style={{ fontWeight: 600, fontSize: '14px', color: 'var(--text-primary)' }}>Full Exam</span>
           </div>
-          <div style={{ fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
+          <div style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
             All {chapterQuestions.length} questions covering the entire chapter in exam order.
           </div>
         </div>
@@ -226,7 +226,7 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
             }
           }}
           style={{
-            padding: '16px',
+            padding: '14px 12px',
             borderRadius: '6px',
             border: `1px solid ${selectedMode === 'mistakes' ? 'var(--accent)' : 'var(--border-hairline)'}`,
             backgroundColor: selectedMode === 'mistakes' ? 'var(--accent-subtle)' : '#FFFFFF',
@@ -237,9 +237,9 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
             <RotateCcw size={16} color={selectedMode === 'mistakes' ? 'var(--accent)' : 'var(--text-secondary)'} />
-            <span style={{ fontWeight: 600, fontSize: '14.5px', color: 'var(--text-primary)' }}>Review Missed</span>
+            <span style={{ fontWeight: 600, fontSize: '14px', color: 'var(--text-primary)' }}>Review Missed</span>
           </div>
-          <div style={{ fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
+          <div style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
             {chapterMistakes.length > 0
               ? `${chapterMistakes.length} question${chapterMistakes.length > 1 ? 's' : ''} logged in Chapter ${selectedChapter === 'ch1' ? '1' : '3'}.`
               : 'No missed questions yet. Complete a session first.'}
@@ -250,11 +250,11 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
       {/* Sub-configuration for Level selection (Chapter 3) */}
       {selectedMode === 'level' && selectedChapter === 'ch3' && (
         <div
+          className="responsive-card"
           style={{
             backgroundColor: '#FFFFFF',
             border: '1px solid var(--border-hairline)',
             borderRadius: '6px',
-            padding: '20px',
             marginBottom: '28px',
             boxShadow: 'var(--shadow-subtle)'
           }}
@@ -262,7 +262,7 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
           <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '12px' }}>
             Select Difficulty Level:
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '10px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 250px), 1fr))', gap: '10px' }}>
             {pythonLevelDetails.map((lvl) => {
               const isSelected = selectedLevel === lvl.level
               return (
@@ -278,7 +278,7 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
                     transition: 'all 0.1s ease'
                   }}
                 >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px', flexWrap: 'wrap', gap: '4px' }}>
                     <span style={{ fontWeight: 600, fontSize: '14px', color: 'var(--text-primary)' }}>
                       {lvl.title}
                     </span>
@@ -316,11 +316,11 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
       {/* Sub-configuration for AI Module/Part selection (Chapter 1) */}
       {selectedMode === 'level' && selectedChapter === 'ch1' && (
         <div
+          className="responsive-card"
           style={{
             backgroundColor: '#FFFFFF',
             border: '1px solid var(--border-hairline)',
             borderRadius: '6px',
-            padding: '20px',
             marginBottom: '28px',
             boxShadow: 'var(--shadow-subtle)'
           }}
@@ -328,7 +328,7 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
           <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '12px' }}>
             Select Topic Module or Exam Part:
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '10px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 250px), 1fr))', gap: '10px' }}>
             {aiModuleDetails.map((mod) => {
               const isSelected = selectedAISection === mod.id
               return (
@@ -344,7 +344,7 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
                     transition: 'all 0.1s ease'
                   }}
                 >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px', flexWrap: 'wrap', gap: '4px' }}>
                     <span style={{ fontWeight: 600, fontSize: '14px', color: 'var(--text-primary)' }}>
                       {mod.title}
                     </span>
@@ -364,11 +364,11 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
 
       {/* Mode settings: Practice vs Exam feedback */}
       <div
+        className="responsive-card"
         style={{
           backgroundColor: '#FFFFFF',
           border: '1px solid var(--border-hairline)',
           borderRadius: '6px',
-          padding: '18px 20px',
           marginBottom: '28px',
           display: 'flex',
           justifyContent: 'space-between',

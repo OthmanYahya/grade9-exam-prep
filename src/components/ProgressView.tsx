@@ -108,11 +108,12 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
 
           <div
             style={{
-              padding: '16px 24px',
+              padding: '16px 20px',
               backgroundColor: '#FAF8F4',
               borderRadius: '6px',
               border: '1px solid var(--border-hairline)',
-              textAlign: 'center'
+              textAlign: 'center',
+              flex: '1 1 120px'
             }}
           >
             <div style={{ fontSize: '36px', fontFamily: 'var(--font-serif)', fontWeight: 700, color: 'var(--accent)', lineHeight: '1' }}>
@@ -128,7 +129,7 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 120px), 1fr))',
             gap: '12px',
             marginTop: '24px',
             paddingTop: '20px',
@@ -183,11 +184,11 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
 
       {/* Progress by Exam Tier / Module */}
       <div
+        className="responsive-card"
         style={{
           backgroundColor: '#FFFFFF',
           border: '1px solid var(--border-hairline)',
           borderRadius: '6px',
-          padding: '24px',
           boxShadow: 'var(--shadow-subtle)',
           marginBottom: '28px'
         }}
@@ -195,7 +196,7 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
         <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '14px' }}>
           Mastery by {selectedChapter === 'ch1' ? 'Topic Module' : 'Difficulty Tier'}
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '14px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))', gap: '14px' }}>
           {categoryStats.map((st, idx) => (
             <div
               key={idx}
@@ -233,11 +234,11 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
       {/* Needs Practice List if any */}
       {needsPracticeIds.length > 0 && (
         <div
+          className="responsive-card"
           style={{
             backgroundColor: '#FFFFFF',
             border: '1px solid var(--warn-border)',
             borderRadius: '6px',
-            padding: '24px',
             boxShadow: 'var(--shadow-subtle)',
             marginBottom: '28px'
           }}

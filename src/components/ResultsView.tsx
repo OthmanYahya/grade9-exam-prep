@@ -122,11 +122,12 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
           {/* Score Box */}
           <div
             style={{
-              padding: '16px 24px',
+              padding: '16px 20px',
               backgroundColor: '#FAF8F4',
               borderRadius: '6px',
               border: '1px solid var(--border-hairline)',
-              textAlign: 'center'
+              textAlign: 'center',
+              flex: '1 1 120px'
             }}
           >
             <div style={{ fontSize: '36px', fontFamily: 'var(--font-serif)', fontWeight: 700, color: 'var(--accent)', lineHeight: '1' }}>
@@ -142,7 +143,7 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 120px), 1fr))',
             gap: '12px',
             marginTop: '24px',
             paddingTop: '20px',
@@ -181,7 +182,7 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
           <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '14px' }}>
             Performance by Difficulty Level
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '10px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 120px), 1fr))', gap: '10px' }}>
             {levelStats.map((st) => (
               <div
                 key={st.level}
