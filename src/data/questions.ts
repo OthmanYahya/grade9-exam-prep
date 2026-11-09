@@ -1,5 +1,6 @@
 import { Question } from '../types'
 import { CHAPTER1_QUESTIONS } from './chapter1Questions'
+import { CHAPTER4_QUESTIONS } from './chapter4Questions'
 
 const RAW_CHAPTER3_QUESTIONS: Omit<Question, 'chapterId' | 'questionNumber'>[] = [
   // ==========================================
@@ -963,7 +964,11 @@ export const CHAPTER3_QUESTIONS: Question[] = RAW_CHAPTER3_QUESTIONS.map((q) => 
   questionNumber: q.id
 }))
 
-export { CHAPTER1_QUESTIONS }
+export { CHAPTER1_QUESTIONS, CHAPTER4_QUESTIONS }
 
-export const QUESTIONS: Question[] = [...CHAPTER3_QUESTIONS, ...CHAPTER1_QUESTIONS]
+export const QUESTIONS: Question[] = [
+  ...CHAPTER3_QUESTIONS,
+  ...CHAPTER1_QUESTIONS,
+  ...CHAPTER4_QUESTIONS
+]
 

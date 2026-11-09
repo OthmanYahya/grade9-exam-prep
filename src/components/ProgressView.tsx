@@ -78,6 +78,26 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
             percent: list.length > 0 ? Math.round((correct / list.length) * 100) : 0
           }
         })
+      : selectedChapter === 'ch4'
+      ? [
+          { id: '4.1', title: '4.1 Intro to Decisions' },
+          { id: '4.2', title: '4.2 The if Statement' },
+          { id: '4.3', title: '4.3 The if-else Statement' },
+          { id: '4.4', title: '4.4 The if-elif-else Chain' },
+          { id: '4.5', title: '4.5 Python Comments' }
+        ].map((mod) => {
+          const list = chapterQuestions.filter((q) => q.sectionId === mod.id)
+          const correct = list.filter((q) => {
+            const rec = questionRecords[q.id]
+            return rec && (rec.lastResult === 'correct' || rec.lastResult === 'self-correct')
+          }).length
+          return {
+            title: mod.title,
+            total: list.length,
+            correct,
+            percent: list.length > 0 ? Math.round((correct / list.length) * 100) : 0
+          }
+        })
       : []
 
   const reviewedCount = progress.reviewedSections.filter((id) =>

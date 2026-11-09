@@ -22,6 +22,7 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
   const [selectedMode, setSelectedMode] = useState<PracticeMode>('level')
   const [selectedLevel, setSelectedLevel] = useState<DifficultyLevel>(1)
   const [selectedAISection, setSelectedAISection] = useState<string>('1.1')
+  const [selectedCh4Section, setSelectedCh4Section] = useState<string>('4.1')
   const [isExamMode, setIsExamMode] = useState<boolean>(false)
 
   const chapterQuestions = QUESTIONS.filter((q) => q.chapterId === selectedChapter)
@@ -38,6 +39,13 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
     } else if (selectedMode === 'level') {
       if (selectedChapter === 'ch3') {
         ids = chapterQuestions.filter((q) => q.level === selectedLevel).map((q) => q.id)
+      } else if (selectedChapter === 'ch4') {
+        if (selectedCh4Section.startsWith('level-')) {
+          const lvl = parseInt(selectedCh4Section.replace('level-', ''), 10) as DifficultyLevel
+          ids = chapterQuestions.filter((q) => q.level === lvl).map((q) => q.id)
+        } else {
+          ids = chapterQuestions.filter((q) => q.sectionId === selectedCh4Section).map((q) => q.id)
+        }
       } else {
         // For Chapter 1: filter by selected section or part
         if (selectedAISection === 'part-a') {
@@ -129,6 +137,58 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
     }
   ]
 
+  const ch4ModuleDetails = [
+    {
+      id: '4.1',
+      title: 'Section 4.1: Intro to Decisions',
+      range: '5 Questions (Q1–Q5)',
+      desc: 'Control flow, sequential execution vs branching, conditions, and core definitions.'
+    },
+    {
+      id: '4.2',
+      title: 'Section 4.2: The if Statement',
+      range: '13 Questions (Q6–Q18)',
+      desc: 'One-way branching, colon syntax, indentation, and/or logic, and statement counters.'
+    },
+    {
+      id: '4.3',
+      title: 'Section 4.3: The if-else Statement',
+      range: '10 Questions (Q19–Q28)',
+      desc: 'Two mutually exclusive branches, even/odd, divisible-by-10, discounts, and variable updates.'
+    },
+    {
+      id: '4.4',
+      title: 'Section 4.4: The if-elif-else Statement',
+      range: '15 Questions (Q29–Q43)',
+      desc: 'Multi-way branching, letter grades, weekdays, order sensitivity, and elif shortcuts.'
+    },
+    {
+      id: '4.5',
+      title: 'Section 4.5: Python Comments',
+      range: '7 Questions (Q44–Q50)',
+      desc: 'Single-line # comments, commented-out traces, multi-line triple quotes, and STEAM calculator.'
+    },
+    {
+      id: 'level-1',
+      title: 'Level 1: Foundation Practice',
+      range: '12 Questions',
+      desc: 'Foundational syntax, Boolean evaluation, colon syntax, and core vocabulary.'
+    },
+    {
+      id: 'level-2',
+      title: 'Level 2: Core Exam Practice',
+      range: '27 Questions',
+      desc: 'Standard traces, discount math, modulo logic, independent ifs vs chains, and output prediction.'
+    },
+    {
+      id: 'level-3',
+      title: 'Level 3: Harder / Challenge Questions',
+      range: '11 Questions',
+      desc: 'Chained logic traps, order-of-conditions bugs, nested structures, and tricky syntax puzzles.',
+      badge: 'Predicted Twists'
+    }
+  ]
+
   return (
     <div className="responsive-container" style={{ maxWidth: '820px' }}>
       {/* Header */}
@@ -148,52 +208,12 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
             : 'Practice Chapter 3: Python Revision'}
         </h1>
         <p style={{ color: 'var(--text-secondary)', fontSize: '14.5px', marginTop: '6px' }}>
-          {selectedChapter === 'ch4'
-            ? 'Practice drills and exam question bank for Chapter 4 are currently being prepared. Explore the 8 comprehensive revision sections in the Study tab!'
-            : `Select a quick warm-up session, drill by module or level, attempt the full ${chapterQuestions.length}-question exam, or reattempt missed questions.`}
+          Select a quick warm-up session, drill by module or level, attempt the full {chapterQuestions.length}-question exam, or reattempt missed questions.
         </p>
       </div>
 
-      {selectedChapter === 'ch4' ? (
-        <div
-          className="responsive-card"
-          style={{
-            textAlign: 'center',
-            padding: '48px 24px',
-            backgroundColor: '#FFFFFF',
-            border: '1px solid var(--border-hairline)',
-            borderRadius: '8px',
-            boxShadow: 'var(--shadow-subtle)'
-          }}
-        >
-          <div style={{ fontSize: '36px', marginBottom: '12px' }}>💡</div>
-          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '22px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '8px' }}>
-            Chapter 4 Question Bank Coming Soon
-          </h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '14.5px', maxWidth: '520px', margin: '0 auto 20px', lineHeight: 1.55 }}>
-            The comprehensive revision material, worked traces, labs, and exam cheat sheet for <strong>Chapter 4: Conditional Statements</strong> are fully ready to study!
-          </p>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              backgroundColor: 'var(--accent-subtle)',
-              border: '1px solid var(--accent)',
-              borderRadius: '6px',
-              padding: '10px 18px',
-              color: 'var(--accent)',
-              fontWeight: 600,
-              fontSize: '13.5px'
-            }}
-          >
-            Switch to the Study tab to review all 8 Chapter 4 topics
-          </div>
-        </div>
-      ) : (
-        <>
-          {/* Mode Selection Cards */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 130px), 1fr))', gap: '10px', marginBottom: '24px' }}>
+      {/* Mode Selection Cards */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 130px), 1fr))', gap: '10px', marginBottom: '24px' }}>
         {/* Quick Practice */}
         <div
           onClick={() => setSelectedMode('quick')}
@@ -211,7 +231,7 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
             <span style={{ fontWeight: 600, fontSize: '14px', color: 'var(--text-primary)' }}>Quick Drill</span>
           </div>
           <div style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
-            10 randomized questions from Chapter {selectedChapter === 'ch1' ? '1' : '3'}. Perfect for a quick review.
+            10 randomized questions from Chapter {selectedChapter === 'ch1' ? '1' : selectedChapter === 'ch4' ? '4' : '3'}. Perfect for a quick review.
           </div>
         </div>
 
@@ -230,12 +250,14 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
             <Layers size={16} color={selectedMode === 'level' ? 'var(--accent)' : 'var(--text-secondary)'} />
             <span style={{ fontWeight: 600, fontSize: '14px', color: 'var(--text-primary)' }}>
-              {selectedChapter === 'ch1' ? 'By Module' : 'By Difficulty'}
+              {selectedChapter === 'ch3' ? 'By Difficulty' : selectedChapter === 'ch4' ? 'By Section / Level' : 'By Module'}
             </span>
           </div>
           <div style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
             {selectedChapter === 'ch1'
               ? 'Drill Section 1.1, 1.2, 1.3, 1.4, Part A (MCQ), or Part B (True/False).'
+              : selectedChapter === 'ch4'
+              ? 'Drill Section 4.1 to 4.5 or focus on Foundation, Core, or Challenge tiers.'
               : 'Focus on a specific tier (Level 1, 2, 3, or 4) to systematically build mastery.'}
           </div>
         </div>
@@ -284,7 +306,7 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
           </div>
           <div style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
             {chapterMistakes.length > 0
-              ? `${chapterMistakes.length} question${chapterMistakes.length > 1 ? 's' : ''} logged in Chapter ${selectedChapter === 'ch1' ? '1' : '3'}.`
+              ? `${chapterMistakes.length} question${chapterMistakes.length > 1 ? 's' : ''} logged in Chapter ${selectedChapter === 'ch1' ? '1' : selectedChapter === 'ch4' ? '4' : '3'}.`
               : 'No missed questions yet. Complete a session first.'}
           </div>
         </div>
@@ -405,6 +427,72 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
         </div>
       )}
 
+      {/* Sub-configuration for Chapter 4 Module/Level selection */}
+      {selectedMode === 'level' && selectedChapter === 'ch4' && (
+        <div
+          className="responsive-card"
+          style={{
+            backgroundColor: '#FFFFFF',
+            border: '1px solid var(--border-hairline)',
+            borderRadius: '6px',
+            marginBottom: '28px',
+            boxShadow: 'var(--shadow-subtle)'
+          }}
+        >
+          <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '12px' }}>
+            Select Topic Section or Difficulty Tier:
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 250px), 1fr))', gap: '10px' }}>
+            {ch4ModuleDetails.map((mod) => {
+              const isSelected = selectedCh4Section === mod.id
+              return (
+                <div
+                  key={mod.id}
+                  onClick={() => setSelectedCh4Section(mod.id)}
+                  style={{
+                    padding: '14px',
+                    borderRadius: '6px',
+                    border: `1px solid ${isSelected ? 'var(--accent)' : 'var(--border-hairline)'}`,
+                    backgroundColor: isSelected ? 'var(--bg-subtle)' : '#FAF8F4',
+                    cursor: 'pointer',
+                    transition: 'all 0.1s ease'
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px', flexWrap: 'wrap', gap: '4px' }}>
+                    <span style={{ fontWeight: 600, fontSize: '14px', color: 'var(--text-primary)' }}>
+                      {mod.title}
+                    </span>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-muted)' }}>
+                      {mod.range}
+                    </span>
+                  </div>
+                  <div style={{ fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: '1.45' }}>
+                    {mod.desc}
+                  </div>
+                  {mod.badge && (
+                    <div style={{ marginTop: '6px' }}>
+                      <span
+                        style={{
+                          fontSize: '10.5px',
+                          padding: '1px 6px',
+                          borderRadius: '3px',
+                          backgroundColor: 'var(--warn-bg)',
+                          color: 'var(--warn)',
+                          border: '1px solid var(--warn-border)',
+                          fontWeight: 500
+                        }}
+                      >
+                        {mod.badge}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Mode settings: Practice vs Exam feedback */}
       <div
         className="responsive-card"
@@ -468,37 +556,37 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
         </div>
       </div>
 
-        {/* Launch CTA */}
-        <div style={{ display: 'flex', width: '100%' }}>
-          <button
-            onClick={handleLaunch}
-            style={{
-              width: '100%',
-              backgroundColor: 'var(--accent)',
-              color: '#FFFFFF',
-              border: 'none',
-              borderRadius: '6px',
-              padding: '14px 28px',
-              fontSize: '15px',
-              fontWeight: 600,
-              cursor: 'pointer',
-              boxShadow: 'var(--shadow-subtle)',
-              transition: 'background 0.15s ease',
-              minHeight: '48px',
-              textAlign: 'center'
-            }}
-          >
-            {selectedMode === 'quick' && 'Start 10-Question Drill'}
-            {selectedMode === 'level' &&
-              (selectedChapter === 'ch3'
-                ? `Start Level ${selectedLevel} Practice`
-                : `Start Module ${selectedAISection.toUpperCase()} Practice`)}
-            {selectedMode === 'exam' && `Begin Full ${chapterQuestions.length}-Question Exam`}
-            {selectedMode === 'mistakes' && `Reattempt ${chapterMistakes.length} Missed Questions`}
-          </button>
-        </div>
-      </>
-      )}
+      {/* Launch CTA */}
+      <div style={{ display: 'flex', width: '100%' }}>
+        <button
+          onClick={handleLaunch}
+          style={{
+            width: '100%',
+            backgroundColor: 'var(--accent)',
+            color: '#FFFFFF',
+            border: 'none',
+            borderRadius: '6px',
+            padding: '14px 28px',
+            fontSize: '15px',
+            fontWeight: 600,
+            cursor: 'pointer',
+            boxShadow: 'var(--shadow-subtle)',
+            transition: 'background 0.15s ease',
+            minHeight: '48px',
+            textAlign: 'center'
+          }}
+        >
+          {selectedMode === 'quick' && 'Start 10-Question Drill'}
+          {selectedMode === 'level' &&
+            (selectedChapter === 'ch3'
+              ? `Start Level ${selectedLevel} Practice`
+              : selectedChapter === 'ch4'
+              ? `Start ${selectedCh4Section.startsWith('level-') ? `Level ${selectedCh4Section.replace('level-', '')}` : `Section ${selectedCh4Section}`} Practice`
+              : `Start Module ${selectedAISection.toUpperCase()} Practice`)}
+          {selectedMode === 'exam' && `Begin Full ${chapterQuestions.length}-Question Exam`}
+          {selectedMode === 'mistakes' && `Reattempt ${chapterMistakes.length} Missed Questions`}
+        </button>
+      </div>
     </div>
   )
 }

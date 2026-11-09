@@ -7,7 +7,7 @@ export const CHAPTER4_STUDY_SECTIONS: StudySection[] = [
     title: '4.1 What Are Conditional Statements? (LP1)',
     shortTitle: '4.1 Intro & Decisions',
     subtitle: 'Decisions in code, the 3 conditional structures, control flow, and core vocabulary (slides 3–5; p. 64)',
-    relatedQuestionIds: [],
+    relatedQuestionIds: [201, 202, 203, 204, 205],
     blocks: [
       {
         type: 'paragraph',
@@ -75,7 +75,7 @@ export const CHAPTER4_STUDY_SECTIONS: StudySection[] = [
     title: 'Foundations: Conditions, Operators & User Input',
     shortTitle: '4.1 Conditions & Operators',
     subtitle: 'Comparison operators, logical operators (and/or/not), arithmetic in conditions (%), and reading user input',
-    relatedQuestionIds: [],
+    relatedQuestionIds: [203, 204, 212, 213, 214, 215, 216],
     blocks: [
       {
         type: 'paragraph',
@@ -168,7 +168,7 @@ if age >= 18:
     title: '4.2 The if Statement: One-Way Decisions (LP2)',
     shortTitle: '4.2 The if Statement',
     subtitle: 'One-way branch execution, colon syntax, indentation rules, and counting executed print statements (slides 6–10; pp. 64–65)',
-    relatedQuestionIds: [],
+    relatedQuestionIds: [206, 207, 208, 209, 210, 211, 217, 218],
     blocks: [
       {
         type: 'paragraph',
@@ -259,7 +259,7 @@ print(x)`,
     title: '4.3 The if-else Statement: Two Alternative Paths (LP3)',
     shortTitle: '4.3 The if-else Statement',
     subtitle: 'Choosing between two mutually exclusive paths, the divisible-by-10 lab, variable updates, and game dev (slides 11–17; pp. 65–67)',
-    relatedQuestionIds: [],
+    relatedQuestionIds: [219, 220, 221, 222, 223, 224, 225, 226, 227, 228],
     blocks: [
       {
         type: 'paragraph',
@@ -362,7 +362,7 @@ print(value)`,
     title: '4.4 The if-elif-else Statement: Multi-Way Decisions (LP4)',
     shortTitle: '4.4 The if-elif-else Chain',
     subtitle: 'Choosing one of multiple alternatives, condition ordering, separate ifs vs chains, and weekday lab (slides 18–25; pp. 67–69)',
-    relatedQuestionIds: [],
+    relatedQuestionIds: [229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243],
     blocks: [
       {
         type: 'paragraph',
@@ -522,7 +522,7 @@ else:
     title: '4.5 Comments, Docstrings & STEAM Calculator (LP5)',
     shortTitle: '4.5 Comments & Calculator',
     subtitle: 'Using #, commented-out line tracing, triple-quoted docstrings, and complete STEAM calculator (slides 26–31; pp. 70–71)',
-    relatedQuestionIds: [],
+    relatedQuestionIds: [244, 245, 246, 247, 248, 249, 250],
     blocks: [
       {
         type: 'paragraph',
@@ -621,7 +621,7 @@ else:
     title: 'Output Tracing & The 15 Exam Traps (SDP Alignment)',
     shortTitle: '4.6 Tracing & 15 Traps',
     subtitle: '5-step code tracing method, worked traces A through F, the 15 classic exam traps, and syntax vs logic errors',
-    relatedQuestionIds: [],
+    relatedQuestionIds: [207, 208, 217, 218, 222, 223, 234, 235, 236, 243, 246],
     blocks: [
       {
         type: 'paragraph',
@@ -718,7 +718,7 @@ else:
     title: 'Chapter Review, Self-Test & 10 Golden Rules',
     shortTitle: '4.7 Review & 10 Rules',
     subtitle: 'Official presentation activities answer key, Chapter review answers, 12 quick drills, and the 10 golden rules',
-    relatedQuestionIds: [],
+    relatedQuestionIds: [201, 203, 206, 219, 220, 221, 224, 237, 240, 244, 250],
     blocks: [
       {
         type: 'paragraph',

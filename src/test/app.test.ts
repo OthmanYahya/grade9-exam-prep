@@ -1,5 +1,10 @@
 import { describe, it, expect } from 'vitest'
-import { QUESTIONS, CHAPTER1_QUESTIONS, CHAPTER3_QUESTIONS } from '../data/questions'
+import {
+  QUESTIONS,
+  CHAPTER1_QUESTIONS,
+  CHAPTER3_QUESTIONS,
+  CHAPTER4_QUESTIONS
+} from '../data/questions'
 import {
   STUDY_SECTIONS,
   CHAPTER1_STUDY_SECTIONS,
@@ -14,10 +19,11 @@ import { gradeQuestion, normalizeOutput } from '../utils/grading'
 import { DEFAULT_PROGRESS } from '../utils/storage'
 
 describe('Question Bank Data Integrity', () => {
-  it('contains 98 total questions across both chapters', () => {
-    expect(QUESTIONS.length).toBe(98)
+  it('contains 148 total questions across all three chapters', () => {
+    expect(QUESTIONS.length).toBe(148)
     expect(CHAPTER3_QUESTIONS.length).toBe(48)
     expect(CHAPTER1_QUESTIONS.length).toBe(50)
+    expect(CHAPTER4_QUESTIONS.length).toBe(50)
   })
 
   it('preserves Chapter 3 sequential IDs (1-48) without gaps or duplicates', () => {
@@ -30,6 +36,23 @@ describe('Question Bank Data Integrity', () => {
     expect(ids).toEqual(Array.from({ length: 50 }, (_, i) => i + 101))
     const qNums = CHAPTER1_QUESTIONS.map((q) => q.questionNumber)
     expect(qNums).toEqual(Array.from({ length: 50 }, (_, i) => i + 1))
+  })
+
+  it('preserves Chapter 4 sequential IDs (201-250) without gaps or duplicates', () => {
+    const ids = CHAPTER4_QUESTIONS.map((q) => q.id)
+    expect(ids).toEqual(Array.from({ length: 50 }, (_, i) => i + 201))
+    const qNums = CHAPTER4_QUESTIONS.map((q) => q.questionNumber)
+    expect(qNums).toEqual(Array.from({ length: 50 }, (_, i) => i + 1))
+  })
+
+  it('has the correct count per difficulty level for Chapter 4 Conditional Statements', () => {
+    const l1 = CHAPTER4_QUESTIONS.filter((q) => q.level === 1)
+    const l2 = CHAPTER4_QUESTIONS.filter((q) => q.level === 2)
+    const l3 = CHAPTER4_QUESTIONS.filter((q) => q.level === 3)
+
+    expect(l1.length).toBe(12) // Foundation (Q1-6, 19-20, 28, 44-45, 50)
+    expect(l2.length).toBe(27) // Core
+    expect(l3.length).toBe(11) // Challenge
   })
 
   it('has the correct count per difficulty level for Chapter 3 Python', () => {
@@ -58,7 +81,7 @@ describe('Question Bank Data Integrity', () => {
     })
   })
 
-  it('all questions across both chapters have prompts, hints, and worked explanations', () => {
+  it('all questions across all three chapters have prompts, hints, and worked explanations', () => {
     QUESTIONS.forEach((q) => {
       expect(q.prompt.length).toBeGreaterThan(5)
       expect(q.explanation.length).toBeGreaterThan(10)
@@ -82,6 +105,62 @@ describe('Question Bank Data Integrity', () => {
     expect(q46.type).toBe('multiple-choice')
     expect(q46.correctAnswer).toEqual(['B', 'D'])
     expect(q46.selectCount).toBe(2)
+
+    // Chapter 4 multi-select questions
+    const ch4q1 = CHAPTER4_QUESTIONS.find((q) => q.id === 201)!
+    expect(ch4q1.type).toBe('multiple-choice')
+    expect(ch4q1.correctAnswer).toEqual(['A', 'C', 'E'])
+    expect(ch4q1.selectCount).toBe(3)
+
+    const ch4q12 = CHAPTER4_QUESTIONS.find((q) => q.id === 212)!
+    expect(ch4q12.type).toBe('multiple-choice')
+    expect(ch4q12.correctAnswer).toEqual(['B', 'D'])
+    expect(ch4q12.selectCount).toBe(2)
+
+    const ch4q13 = CHAPTER4_QUESTIONS.find((q) => q.id === 213)!
+    expect(ch4q13.type).toBe('multiple-choice')
+    expect(ch4q13.correctAnswer).toEqual(['C', 'E'])
+    expect(ch4q13.selectCount).toBe(2)
+
+    const ch4q14 = CHAPTER4_QUESTIONS.find((q) => q.id === 214)!
+    expect(ch4q14.type).toBe('multiple-choice')
+    expect(ch4q14.correctAnswer).toEqual(['C', 'D'])
+    expect(ch4q14.selectCount).toBe(2)
+
+    const ch4q25 = CHAPTER4_QUESTIONS.find((q) => q.id === 225)!
+    expect(ch4q25.type).toBe('multiple-choice')
+    expect(ch4q25.correctAnswer).toEqual(['A', 'C'])
+    expect(ch4q25.selectCount).toBe(2)
+  })
+
+  it('deeply validates all 50 Chapter 4 questions for formatting, answers, and metadata', () => {
+    expect(CHAPTER4_QUESTIONS.length).toBe(50)
+    CHAPTER4_QUESTIONS.forEach((q) => {
+      // Valid sectionId
+      expect(['4.1', '4.2', '4.3', '4.4', '4.5']).toContain(q.sectionId)
+      // Valid options
+      expect(q.options).toBeDefined()
+      expect(q.options!.length).toBeGreaterThanOrEqual(4)
+      const optionIds = q.options!.map((o) => o.id)
+
+      // Check answer validity
+      if (q.type === 'single-choice') {
+        expect(typeof q.correctAnswer).toBe('string')
+        expect(optionIds).toContain(q.correctAnswer)
+      } else if (q.type === 'multiple-choice') {
+        expect(Array.isArray(q.correctAnswer)).toBe(true)
+        expect((q.correctAnswer as string[]).length).toBe(q.selectCount)
+        ;(q.correctAnswer as string[]).forEach((ans) => {
+          expect(optionIds).toContain(ans)
+        })
+      }
+
+      // Hints and explanations
+      expect(q.hint.length).toBeGreaterThan(15)
+      expect(q.explanation.length).toBeGreaterThan(20)
+      expect(q.level).toBeGreaterThanOrEqual(1)
+      expect(q.level).toBeLessThanOrEqual(3)
+    })
   })
 
   it('verifies exact output questions Q32 and Q33', () => {
@@ -119,7 +198,7 @@ describe('Question Bank Data Integrity', () => {
 })
 
 describe('Grading Logic', () => {
-  it('correctly grades single choice questions for both chapters', () => {
+  it('correctly grades single choice questions for all chapters', () => {
     const q1 = CHAPTER3_QUESTIONS.find((q) => q.id === 1)!
     expect(gradeQuestion(q1, 'B').isCorrect).toBe(true)
     expect(gradeQuestion(q1, 'b').isCorrect).toBe(true)
@@ -129,6 +208,11 @@ describe('Grading Logic', () => {
     const ch1Q1 = CHAPTER1_QUESTIONS.find((q) => q.id === 101)!
     expect(gradeQuestion(ch1Q1, 'B').isCorrect).toBe(true)
     expect(gradeQuestion(ch1Q1, 'A').isCorrect).toBe(false)
+
+    // Chapter 4 Q2 (ID 202)
+    const ch4Q2 = CHAPTER4_QUESTIONS.find((q) => q.id === 202)!
+    expect(gradeQuestion(ch4Q2, 'A').isCorrect).toBe(true)
+    expect(gradeQuestion(ch4Q2, 'B').isCorrect).toBe(false)
   })
 
   it('correctly grades Chapter 1 True/False questions', () => {
@@ -149,6 +233,13 @@ describe('Grading Logic', () => {
     expect(gradeQuestion(q5, ['D', 'B']).isCorrect).toBe(true) // order independent
     expect(gradeQuestion(q5, ['B']).isCorrect).toBe(false)
     expect(gradeQuestion(q5, ['A', 'B', 'D']).isCorrect).toBe(false)
+
+    // Chapter 4 Q1 (ID 201: A, C, E)
+    const ch4Q1 = CHAPTER4_QUESTIONS.find((q) => q.id === 201)!
+    expect(gradeQuestion(ch4Q1, ['A', 'C', 'E']).isCorrect).toBe(true)
+    expect(gradeQuestion(ch4Q1, ['E', 'A', 'C']).isCorrect).toBe(true) // order independent
+    expect(gradeQuestion(ch4Q1, ['A', 'C']).isCorrect).toBe(false) // missing one
+    expect(gradeQuestion(ch4Q1, ['A', 'B', 'C', 'E']).isCorrect).toBe(false) // extra option
   })
 
   it('correctly grades exact output questions with normalization', () => {
@@ -194,6 +285,16 @@ describe('Study Lessons & Checklist', () => {
     expect(CHAPTER3_CHECKLIST.length).toBe(9)
     expect(CHAPTER4_CHECKLIST.length).toBe(10)
     expect(CHECKLIST_ITEMS.length).toBe(28)
+  })
+
+  it('links study sections to valid practice questions for Chapter 4', () => {
+    const ch4QuestionIds = new Set(CHAPTER4_QUESTIONS.map((q) => q.id))
+    CHAPTER4_STUDY_SECTIONS.forEach((sec) => {
+      expect(sec.relatedQuestionIds.length).toBeGreaterThan(0)
+      sec.relatedQuestionIds.forEach((qId) => {
+        expect(ch4QuestionIds.has(qId)).toBe(true)
+      })
+    })
   })
 
   it('has valid default progress structure', () => {
