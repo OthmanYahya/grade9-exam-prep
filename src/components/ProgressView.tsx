@@ -59,7 +59,8 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
             percent: list.length > 0 ? Math.round((correct / list.length) * 100) : 0
           }
         })
-      : [
+      : selectedChapter === 'ch1'
+      ? [
           { id: '1.1', title: '1.1 Intro to AI' },
           { id: '1.2', title: '1.2 Branches of AI' },
           { id: '1.3', title: '1.3 Generative AI' },
@@ -77,9 +78,14 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
             percent: list.length > 0 ? Math.round((correct / list.length) * 100) : 0
           }
         })
+      : []
 
   const reviewedCount = progress.reviewedSections.filter((id) =>
-    selectedChapter === 'ch1' ? id >= 11 && id <= 14 : id >= 1 && id <= 8
+    selectedChapter === 'ch1'
+      ? id >= 11 && id <= 14
+      : selectedChapter === 'ch4'
+      ? id >= 21 && id <= 28
+      : id >= 1 && id <= 8
   ).length
   const totalSections = selectedChapter === 'ch1' ? 4 : 8
 
@@ -95,7 +101,7 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
           <div>
             <div style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-muted)', fontWeight: 600, marginBottom: '4px' }}>
-              Local Study Ledger · {selectedChapter === 'ch1' ? 'Chapter 1: AI in Action' : 'Chapter 3: Python Revision'}
+              Local Study Ledger · {selectedChapter === 'ch1' ? 'Chapter 1: AI in Action' : selectedChapter === 'ch4' ? 'Chapter 4: Conditional Statements' : 'Chapter 3: Python Revision'}
             </div>
             <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '28px', fontWeight: 600, color: 'var(--text-primary)' }}>
               Revision Progress & Mastery
@@ -183,53 +189,90 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
       </div>
 
       {/* Progress by Exam Tier / Module */}
-      <div
-        className="responsive-card"
-        style={{
-          backgroundColor: '#FFFFFF',
-          border: '1px solid var(--border-hairline)',
-          borderRadius: '6px',
-          boxShadow: 'var(--shadow-subtle)',
-          marginBottom: '28px'
-        }}
-      >
-        <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '14px' }}>
-          Mastery by {selectedChapter === 'ch1' ? 'Topic Module' : 'Difficulty Tier'}
+      {categoryStats.length > 0 ? (
+        <div
+          className="responsive-card"
+          style={{
+            backgroundColor: '#FFFFFF',
+            border: '1px solid var(--border-hairline)',
+            borderRadius: '6px',
+            boxShadow: 'var(--shadow-subtle)',
+            marginBottom: '28px'
+          }}
+        >
+          <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '14px' }}>
+            Mastery by {selectedChapter === 'ch1' ? 'Topic Module' : 'Difficulty Tier'}
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))', gap: '14px' }}>
+            {categoryStats.map((st, idx) => (
+              <div
+                key={idx}
+                style={{
+                  padding: '14px',
+                  backgroundColor: '#FAF8F4',
+                  borderRadius: '5px',
+                  border: '1px solid var(--border-hairline)'
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', marginBottom: '6px' }}>
+                  <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{st.title}</span>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--text-secondary)' }}>
+                    {st.correct} / {st.total}
+                  </span>
+                </div>
+                <div style={{ height: '5px', backgroundColor: '#E5DFD3', borderRadius: '3px', overflow: 'hidden' }}>
+                  <div
+                    style={{
+                      height: '100%',
+                      width: `${st.percent}%`,
+                      backgroundColor: 'var(--accent)',
+                      transition: 'width 0.2s ease'
+                    }}
+                  />
+                </div>
+                <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '6px', textAlign: 'right' }}>
+                  {st.percent}% completed
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))', gap: '14px' }}>
-          {categoryStats.map((st, idx) => (
-            <div
-              key={idx}
-              style={{
-                padding: '14px',
-                backgroundColor: '#FAF8F4',
-                borderRadius: '5px',
-                border: '1px solid var(--border-hairline)'
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', marginBottom: '6px' }}>
-                <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{st.title}</span>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--text-secondary)' }}>
-                  {st.correct} / {st.total}
-                </span>
-              </div>
-              <div style={{ height: '5px', backgroundColor: '#E5DFD3', borderRadius: '3px', overflow: 'hidden' }}>
-                <div
-                  style={{
-                    height: '100%',
-                    width: `${st.percent}%`,
-                    backgroundColor: 'var(--accent)',
-                    transition: 'width 0.2s ease'
-                  }}
-                />
-              </div>
-              <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '6px', textAlign: 'right' }}>
-                {st.percent}% completed
-              </div>
-            </div>
-          ))}
+      ) : (
+        <div
+          className="responsive-card"
+          style={{
+            backgroundColor: '#FFFFFF',
+            border: '1px solid var(--border-hairline)',
+            borderRadius: '6px',
+            boxShadow: 'var(--shadow-subtle)',
+            marginBottom: '28px',
+            padding: '24px',
+            textAlign: 'center'
+          }}
+        >
+          <h3 style={{ fontSize: '16px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '8px' }}>
+            Chapter 4 Study Ledger
+          </h3>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '14px', maxWidth: '480px', margin: '0 auto 16px' }}>
+            You have reviewed <strong>{reviewedCount} of {totalSections}</strong> study modules in Chapter 4: Conditional Statements. Practice question bank will be integrated soon.
+          </p>
+          <button
+            onClick={onGoToStudy}
+            style={{
+              padding: '8px 16px',
+              backgroundColor: 'var(--accent)',
+              color: '#FFFFFF',
+              borderRadius: '5px',
+              border: 'none',
+              cursor: 'pointer',
+              fontWeight: 600,
+              fontSize: '13px'
+            }}
+          >
+            Open Study Lessons
+          </button>
         </div>
-      </div>
+      )}
 
       {/* Needs Practice List if any */}
       {needsPracticeIds.length > 0 && (

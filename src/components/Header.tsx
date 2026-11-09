@@ -97,6 +97,8 @@ export const Header: React.FC<HeaderProps> = ({
             >
               {selectedChapter === 'ch1'
                 ? 'Chapter 1: Exploring Artificial Intelligence'
+                : selectedChapter === 'ch4'
+                ? 'Chapter 4: Conditional Statements'
                 : 'Chapter 3: Introduction to Python'}
             </div>
           </div>
@@ -146,6 +148,22 @@ export const Header: React.FC<HeaderProps> = ({
             }}
           >
             Ch 3 · Python (48 Qs)
+          </button>
+          <button
+            onClick={() => onSelectChapter('ch4')}
+            style={{
+              padding: '4px 10px',
+              borderRadius: '4px',
+              border: 'none',
+              backgroundColor: selectedChapter === 'ch4' ? 'var(--accent)' : 'transparent',
+              color: selectedChapter === 'ch4' ? '#FFFFFF' : 'var(--text-secondary)',
+              fontWeight: selectedChapter === 'ch4' ? 600 : 500,
+              fontSize: '12px',
+              cursor: 'pointer',
+              transition: 'all 0.1s ease'
+            }}
+          >
+            Ch 4 · Conditions (Study)
           </button>
         </div>
 
@@ -371,7 +389,23 @@ export const Header: React.FC<HeaderProps> = ({
                 whiteSpace: 'nowrap'
               }}
             >
-              Ch 3<span className="fold-narrow-hide"> · Python</span>
+              Ch 3<span className="fold-narrow-hide"> · Py</span>
+            </button>
+            <button
+              onClick={() => onSelectChapter('ch4')}
+              style={{
+                padding: '4px 6px',
+                borderRadius: '3px',
+                border: 'none',
+                backgroundColor: selectedChapter === 'ch4' ? 'var(--accent)' : 'transparent',
+                color: selectedChapter === 'ch4' ? '#FFFFFF' : 'var(--text-secondary)',
+                fontWeight: selectedChapter === 'ch4' ? 600 : 500,
+                fontSize: '11.5px',
+                cursor: 'pointer',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              Ch 4<span className="fold-narrow-hide"> · If</span>
             </button>
           </div>
 

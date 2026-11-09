@@ -7,7 +7,7 @@ export type QuestionType =
 
 export type DifficultyLevel = 1 | 2 | 3 | 4
 
-export type ChapterId = 'ch1' | 'ch3'
+export type ChapterId = 'ch1' | 'ch3' | 'ch4'
 
 export interface QuestionOption {
   id: string

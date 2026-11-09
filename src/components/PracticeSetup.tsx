@@ -136,21 +136,64 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
         <div style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-muted)', fontWeight: 600, marginBottom: '6px' }}>
           {selectedChapter === 'ch1'
             ? 'Tech Explorers: AI in Action · Practice Engine'
+            : selectedChapter === 'ch4'
+            ? 'Control Flow & Logic · Practice Engine'
             : 'Interactive Practice Engine · Level K'}
         </div>
         <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '28px', fontWeight: 600, color: 'var(--text-primary)' }}>
           {selectedChapter === 'ch1'
             ? 'Practice Chapter 1: AI in Action'
+            : selectedChapter === 'ch4'
+            ? 'Practice Chapter 4: Conditional Statements'
             : 'Practice Chapter 3: Python Revision'}
         </h1>
         <p style={{ color: 'var(--text-secondary)', fontSize: '14.5px', marginTop: '6px' }}>
-          Select a quick warm-up session, drill by module or level, attempt the full{' '}
-          {chapterQuestions.length}-question exam, or reattempt missed questions.
+          {selectedChapter === 'ch4'
+            ? 'Practice drills and exam question bank for Chapter 4 are currently being prepared. Explore the 8 comprehensive revision sections in the Study tab!'
+            : `Select a quick warm-up session, drill by module or level, attempt the full ${chapterQuestions.length}-question exam, or reattempt missed questions.`}
         </p>
       </div>
 
-      {/* Mode Selection Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 130px), 1fr))', gap: '10px', marginBottom: '24px' }}>
+      {selectedChapter === 'ch4' ? (
+        <div
+          className="responsive-card"
+          style={{
+            textAlign: 'center',
+            padding: '48px 24px',
+            backgroundColor: '#FFFFFF',
+            border: '1px solid var(--border-hairline)',
+            borderRadius: '8px',
+            boxShadow: 'var(--shadow-subtle)'
+          }}
+        >
+          <div style={{ fontSize: '36px', marginBottom: '12px' }}>💡</div>
+          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '22px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '8px' }}>
+            Chapter 4 Question Bank Coming Soon
+          </h2>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '14.5px', maxWidth: '520px', margin: '0 auto 20px', lineHeight: 1.55 }}>
+            The comprehensive revision material, worked traces, labs, and exam cheat sheet for <strong>Chapter 4: Conditional Statements</strong> are fully ready to study!
+          </p>
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              backgroundColor: 'var(--accent-subtle)',
+              border: '1px solid var(--accent)',
+              borderRadius: '6px',
+              padding: '10px 18px',
+              color: 'var(--accent)',
+              fontWeight: 600,
+              fontSize: '13.5px'
+            }}
+          >
+            Switch to the Study tab to review all 8 Chapter 4 topics
+          </div>
+        </div>
+      ) : (
+        <>
+          {/* Mode Selection Cards */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 130px), 1fr))', gap: '10px', marginBottom: '24px' }}>
         {/* Quick Practice */}
         <div
           onClick={() => setSelectedMode('quick')}
@@ -425,35 +468,37 @@ export const PracticeSetup: React.FC<PracticeSetupProps> = ({
         </div>
       </div>
 
-      {/* Launch CTA */}
-      <div style={{ display: 'flex', width: '100%' }}>
-        <button
-          onClick={handleLaunch}
-          style={{
-            width: '100%',
-            backgroundColor: 'var(--accent)',
-            color: '#FFFFFF',
-            border: 'none',
-            borderRadius: '6px',
-            padding: '14px 28px',
-            fontSize: '15px',
-            fontWeight: 600,
-            cursor: 'pointer',
-            boxShadow: 'var(--shadow-subtle)',
-            transition: 'background 0.15s ease',
-            minHeight: '48px',
-            textAlign: 'center'
-          }}
-        >
-          {selectedMode === 'quick' && 'Start 10-Question Drill'}
-          {selectedMode === 'level' &&
-            (selectedChapter === 'ch3'
-              ? `Start Level ${selectedLevel} Practice`
-              : `Start Module ${selectedAISection.toUpperCase()} Practice`)}
-          {selectedMode === 'exam' && `Begin Full ${chapterQuestions.length}-Question Exam`}
-          {selectedMode === 'mistakes' && `Reattempt ${chapterMistakes.length} Missed Questions`}
-        </button>
-      </div>
+        {/* Launch CTA */}
+        <div style={{ display: 'flex', width: '100%' }}>
+          <button
+            onClick={handleLaunch}
+            style={{
+              width: '100%',
+              backgroundColor: 'var(--accent)',
+              color: '#FFFFFF',
+              border: 'none',
+              borderRadius: '6px',
+              padding: '14px 28px',
+              fontSize: '15px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              boxShadow: 'var(--shadow-subtle)',
+              transition: 'background 0.15s ease',
+              minHeight: '48px',
+              textAlign: 'center'
+            }}
+          >
+            {selectedMode === 'quick' && 'Start 10-Question Drill'}
+            {selectedMode === 'level' &&
+              (selectedChapter === 'ch3'
+                ? `Start Level ${selectedLevel} Practice`
+                : `Start Module ${selectedAISection.toUpperCase()} Practice`)}
+            {selectedMode === 'exam' && `Begin Full ${chapterQuestions.length}-Question Exam`}
+            {selectedMode === 'mistakes' && `Reattempt ${chapterMistakes.length} Missed Questions`}
+          </button>
+        </div>
+      </>
+      )}
     </div>
   )
 }

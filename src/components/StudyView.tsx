@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import {
   CHAPTER1_STUDY_SECTIONS,
   CHAPTER3_STUDY_SECTIONS,
+  CHAPTER4_STUDY_SECTIONS,
   CHAPTER1_CHECKLIST,
   CHAPTER3_CHECKLIST,
+  CHAPTER4_CHECKLIST,
   MASTERY_TARGETS
 } from '../data/studySections'
 import { ChapterId } from '../types'
@@ -40,9 +42,17 @@ export const StudyView: React.FC<StudyViewProps> = ({
   onStartTopicPractice
 }) => {
   const chapterSections =
-    selectedChapter === 'ch1' ? CHAPTER1_STUDY_SECTIONS : CHAPTER3_STUDY_SECTIONS
+    selectedChapter === 'ch1'
+      ? CHAPTER1_STUDY_SECTIONS
+      : selectedChapter === 'ch4'
+      ? CHAPTER4_STUDY_SECTIONS
+      : CHAPTER3_STUDY_SECTIONS
   const chapterChecklist =
-    selectedChapter === 'ch1' ? CHAPTER1_CHECKLIST : CHAPTER3_CHECKLIST
+    selectedChapter === 'ch1'
+      ? CHAPTER1_CHECKLIST
+      : selectedChapter === 'ch4'
+      ? CHAPTER4_CHECKLIST
+      : CHAPTER3_CHECKLIST
 
   const [activeSectionId, setActiveSectionId] = useState<number>(chapterSections[0].id)
   const [showChecklist, setShowChecklist] = useState<boolean>(false)
@@ -84,6 +94,8 @@ export const StudyView: React.FC<StudyViewProps> = ({
         >
           {selectedChapter === 'ch1'
             ? 'Tech Explorers: AI in Action · 4 Core Modules'
+            : selectedChapter === 'ch4'
+            ? 'Control Flow & Logic · 8 Study & Revision Modules'
             : 'Revision Workbook · 8 Core Topics'}
         </div>
         <h1
@@ -98,11 +110,15 @@ export const StudyView: React.FC<StudyViewProps> = ({
         >
           {selectedChapter === 'ch1'
             ? 'Chapter 1: Exploring Artificial Intelligence'
+            : selectedChapter === 'ch4'
+            ? 'Chapter 4: Conditional Statements'
             : 'Chapter 3: Introduction to Python'}
         </h1>
         <p style={{ color: 'var(--text-secondary)', fontSize: '14.5px', maxWidth: '780px' }}>
           {selectedChapter === 'ch1'
             ? 'Study foundational AI concepts, branches, transformer architectures, diffusion, and ethical guidelines.'
+            : selectedChapter === 'ch4'
+            ? 'Master decision-making in Python: one-way if, two-way if-else, multi-way if-elif-else, conditions, indentation, comments, and output tracing.'
             : 'Study one section at a time, review the worked examples, and mark off sections as you master them.'}
         </p>
       </div>
@@ -550,7 +566,7 @@ export const StudyView: React.FC<StudyViewProps> = ({
                       marginBottom: '4px'
                     }}
                   >
-                    Section 0{activeSection.id} of 08
+                    Section 0{currentIdx + 1} of 0{chapterSections.length}
                   </div>
                   <h2
                     style={{
@@ -589,25 +605,43 @@ export const StudyView: React.FC<StudyViewProps> = ({
                     <span>{isReviewed ? 'Reviewed' : 'Mark as Reviewed'}</span>
                   </button>
 
-                  <button
-                    onClick={() => onStartTopicPractice(activeSection.relatedQuestionIds, activeSection.shortTitle)}
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                      padding: '7px 14px',
-                      borderRadius: '5px',
-                      border: 'none',
-                      backgroundColor: 'var(--accent)',
-                      color: '#FFFFFF',
-                      fontSize: '12.5px',
-                      fontWeight: 500,
-                      cursor: 'pointer'
-                    }}
-                  >
-                    <span>Practice Topic</span>
-                    <ArrowRight size={14} />
-                  </button>
+                  {activeSection.relatedQuestionIds.length > 0 ? (
+                    <button
+                      onClick={() => onStartTopicPractice(activeSection.relatedQuestionIds, activeSection.shortTitle)}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        padding: '7px 14px',
+                        borderRadius: '5px',
+                        border: 'none',
+                        backgroundColor: 'var(--accent)',
+                        color: '#FFFFFF',
+                        fontSize: '12.5px',
+                        fontWeight: 500,
+                        cursor: 'pointer'
+                      }}
+                    >
+                      <span>Practice Topic</span>
+                      <ArrowRight size={14} />
+                    </button>
+                  ) : (
+                    <span
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        padding: '6px 12px',
+                        borderRadius: '5px',
+                        backgroundColor: '#FAF8F4',
+                        border: '1px solid var(--border-hairline)',
+                        color: 'var(--text-muted)',
+                        fontSize: '12px',
+                        fontWeight: 500
+                      }}
+                    >
+                      Questions Coming Soon
+                    </span>
+                  )}
                 </div>
               </div>
 

@@ -4,9 +4,11 @@ import {
   STUDY_SECTIONS,
   CHAPTER1_STUDY_SECTIONS,
   CHAPTER3_STUDY_SECTIONS,
+  CHAPTER4_STUDY_SECTIONS,
   CHECKLIST_ITEMS,
   CHAPTER1_CHECKLIST,
-  CHAPTER3_CHECKLIST
+  CHAPTER3_CHECKLIST,
+  CHAPTER4_CHECKLIST
 } from '../data/studySections'
 import { gradeQuestion, normalizeOutput } from '../utils/grading'
 import { DEFAULT_PROGRESS } from '../utils/storage'
@@ -175,10 +177,11 @@ describe('Grading Logic', () => {
 })
 
 describe('Study Lessons & Checklist', () => {
-  it('has all 12 teaching sections across both chapters', () => {
-    expect(STUDY_SECTIONS.length).toBe(12)
+  it('has all 20 teaching sections across all three chapters', () => {
+    expect(STUDY_SECTIONS.length).toBe(20)
     expect(CHAPTER1_STUDY_SECTIONS.length).toBe(4)
     expect(CHAPTER3_STUDY_SECTIONS.length).toBe(8)
+    expect(CHAPTER4_STUDY_SECTIONS.length).toBe(8)
 
     STUDY_SECTIONS.forEach((sec) => {
       expect(sec.title.length).toBeGreaterThan(5)
@@ -186,10 +189,11 @@ describe('Study Lessons & Checklist', () => {
     })
   })
 
-  it('has both chapter checklists', () => {
+  it('has chapter checklists for all chapters', () => {
     expect(CHAPTER1_CHECKLIST.length).toBe(9)
     expect(CHAPTER3_CHECKLIST.length).toBe(9)
-    expect(CHECKLIST_ITEMS.length).toBe(18)
+    expect(CHAPTER4_CHECKLIST.length).toBe(10)
+    expect(CHECKLIST_ITEMS.length).toBe(28)
   })
 
   it('has valid default progress structure', () => {

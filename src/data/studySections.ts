@@ -1,5 +1,6 @@
 import { StudySection, ChecklistItem } from '../types'
 import { CHAPTER1_STUDY_SECTIONS, CHAPTER1_CHECKLIST } from './chapter1Study'
+import { CHAPTER4_STUDY_SECTIONS, CHAPTER4_CHECKLIST } from './chapter4Study'
 
 const RAW_CHAPTER3_STUDY_SECTIONS: Omit<StudySection, 'chapterId'>[] = [
   {
@@ -375,9 +376,13 @@ export const CHAPTER3_STUDY_SECTIONS: StudySection[] = RAW_CHAPTER3_STUDY_SECTIO
   chapterId: 'ch3' as const
 }))
 
-export { CHAPTER1_STUDY_SECTIONS, CHAPTER1_CHECKLIST }
+export { CHAPTER1_STUDY_SECTIONS, CHAPTER1_CHECKLIST, CHAPTER4_STUDY_SECTIONS, CHAPTER4_CHECKLIST }
 
-export const STUDY_SECTIONS: StudySection[] = [...CHAPTER3_STUDY_SECTIONS, ...CHAPTER1_STUDY_SECTIONS]
+export const STUDY_SECTIONS: StudySection[] = [
+  ...CHAPTER3_STUDY_SECTIONS,
+  ...CHAPTER1_STUDY_SECTIONS,
+  ...CHAPTER4_STUDY_SECTIONS
+]
 
 export const CHAPTER3_CHECKLIST: ChecklistItem[] = [
   { id: 'c1', text: 'I can explain the shell/editor difference and remember File → New File, Save, and F5.' },
@@ -391,7 +396,11 @@ export const CHAPTER3_CHECKLIST: ChecklistItem[] = [
   { id: 'c9', text: 'I can recognize when code raises an error rather than producing normal output.' }
 ]
 
-export const CHECKLIST_ITEMS: ChecklistItem[] = [...CHAPTER3_CHECKLIST, ...CHAPTER1_CHECKLIST]
+export const CHECKLIST_ITEMS: ChecklistItem[] = [
+  ...CHAPTER3_CHECKLIST,
+  ...CHAPTER1_CHECKLIST,
+  ...CHAPTER4_CHECKLIST
+]
 
 export const MASTERY_TARGETS = [
   { level: 1, title: 'Level 1: Build confidence', target: '10 / 12', desc: 'Core definitions, IDLE basics, syntax rules' },
